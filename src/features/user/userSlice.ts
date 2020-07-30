@@ -21,7 +21,7 @@ type CurrentUserState = {
 
 export const signUpUser = createAsyncThunk(
     'user/signUpStatus',
-    async (loginUser: LoginUser, thunkAPI): Promise<User | undefined> => {
+    async (loginUser: LoginUser, thunkAPI): Promise<User> => {
         // TODO: Call User register API
         return {
             username: 'dummy',
