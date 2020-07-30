@@ -5,9 +5,9 @@ import {Layout, Menu} from 'antd';
 import './App.css';
 import logo from './logo.png';
 
-import Home from "../features/Home";
-import SignIn from "../features/SignIn";
-import SignUp from "../features/SignUp";
+import ArticleFeed from "../features/articles/ArticleFeed";
+import SignIn from "../features/user/SignIn";
+import SignUp from "../features/user/SignUp";
 import NotFound from "../features/NotFound";
 
 const {Header, Content, Footer} = Layout;
@@ -36,7 +36,7 @@ function App() {
                 <Content className="site-layout" style={{padding: '0 50px', marginTop: 64, minHeight: '85vh'}}>
                     <Switch>
                         <Route exact path="/">
-                            <Home/>
+                            <ArticleFeed/>
                         </Route>
                         <Route path="/signin">
                             <SignIn/>
