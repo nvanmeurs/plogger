@@ -1,38 +1,73 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-export const signInUser = createAsyncThunk('user/signUpStatus', async (loginUser, thunkAPI) => {
-    // TODO: Call User register API
-    return {
-        username: 'dummy',
-        email: 'dummy@dummy.com',
-        bio: 'dummy',
-        token: 'dummy',
-        image: 'dummy',
-    };
-});
+import { createSlice } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-        activeUser: null,
         loading: false,
         error: null,
+        username: null,
+        email: null,
+        bio: null,
+        token: null,
+        image: null,
     },
-    reducers: {},
-    extraReducers: {
-        [signInUser.pending]: (state) => {
+    reducers: {
+        getUserDetailsPending(state, action) {
             state.loading = true;
             state.error = null;
         },
-
-        [signInUser.rejected]: (state, action) => {
+        getUserDetailsFailed(state, action) {
             state.loading = false;
             state.error = action.error;
         },
-
-        [signInUser.fulfilled]: (state, action) => {
+        getUserDetailsSuccess(state, action) {
+            const { username, email, bio, token, image } = action.payload;
             state.loading = false;
-            state.activeUser = action.payload;
+            state.username = username;
+            state.email = email;
+            state.bio = bio;
+            state.token = token;
+            state.image = image;
         },
     },
 });
+
+export const { getUserDetailsPending, getUserDetailsFailed, getUserDetailsSuccess } = userSlice.actions;
+
+export const signInUser = ({ email, password }) => async (dispatch) => {
+    try {
+        dispatch(getUserDetailsPending());
+
+        // TODO: Call sign in API
+        const user = {
+            username: 'dummy',
+            email: 'dummy@dummy.com',
+            bio: 'dummy',
+            token: 'dummy',
+            image: 'dummy',
+        };
+
+        dispatch(getUserDetailsSuccess(user));
+    } catch (err) {
+        dispatch(getUserDetailsFailed(err));
+    }
+};
+
+export const signUpUser = ({ email, username, password }) => async (dispatch) => {
+    try {
+        dispatch(getUserDetailsPending());
+
+        // TODO: Call sign up API
+        const user = {
+            username: 'dummy',
+            email: 'dummy@dummy.com',
+            bio: 'dummy',
+            token: 'dummy',
+            image: 'dummy',
+        };
+
+        dispatch(getUserDetailsSuccess(user));
+    } catch (err) {
+        dispatch(getUserDetailsFailed(err));
+    }
+};
