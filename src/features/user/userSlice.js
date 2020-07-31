@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 export const userSlice = createSlice({
     name: 'user',
@@ -71,3 +71,9 @@ export const signUpUser = ({ email, username, password }) => async (dispatch) =>
         dispatch(getUserDetailsFailed(err));
     }
 };
+
+export const userSelector = (state) => state.user;
+export const userIsSignedInSelector = createSelector(
+    userSelector,
+    (user) => user.email !== null && user.username !== null && user.token !== null
+);
